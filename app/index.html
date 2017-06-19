@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.min.css">
+	<meta charset="utf-8">
+	<title>Visor Simple OpenLayers</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.min.js"></script>
+ 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoZ5ySR8O2gEiR1szWVYS-paVYXKFBJ3o" type="text/javascript"></script>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.min.css"> -->
      <style type>
           #mapa {
             width: 100%;
@@ -8,8 +13,8 @@
             border: 1px solid red;
           }
         </style>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.min.js
-'></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.min.js
+    '></script> -->
 </head>
 <body>
     <h1>Basic map</h1>
@@ -18,7 +23,6 @@
 </html>
 <script type='text/javascript'>
 	var init = function(){
-		console.log(OpenLayers.theme);
 		var proyeccion = new OpenLayers.Projection("EPSG:4326");
 		var controlNavegacion = new OpenLayers.Control.Navigation();
 		var controlZoom = new OpenLayers.Control.PanZoomBar();
@@ -28,8 +32,11 @@
 			controls: [controlNavegacion, controlZoom]
 		};
 		var map = new OpenLayers.Map("mapa", propiedades);
-		var layer = new OpenLayers.Layer.OSM();
-		map.addLayer(layer);
+		var layerOSM = new OpenLayers.Layer.OSM(); //capa base de open street map
+		map.addLayer(layerOSM);
+		var layerGoogleMaps = new OpenLayers.Layer.Google("Mapa Satelital", {type:google.maps.MapTypeId.SATELLITE}); //capa base de google maps
+		map.addLayer(layerGoogleMaps);
+	    map.addControl(new OpenLayers.Control.LayerSwitcher());
 	}
 	window.onload = init;
 </script>	
