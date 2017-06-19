@@ -35,7 +35,9 @@
 		var layerOSM = new OpenLayers.Layer.OSM(); //capa base de open street map
 		map.addLayer(layerOSM);
 		var layerGoogleMaps = new OpenLayers.Layer.Google("Mapa Satelital", {type:google.maps.MapTypeId.SATELLITE}); //capa base de google maps
-		map.addLayer(layerGoogleMaps);
+		var layerGoogleHybrid = new OpenLayers.Layer.Google("Mapa Hibrido", {type:google.maps.MapTypeId.HYBRID}); //capa base de google maps
+		var layerGoogleTerrain = new OpenLayers.Layer.Google("Mapa Terrain", {type:google.maps.MapTypeId.TERRAIN}); //capa base de google maps
+		map.addLayers([layerGoogleMaps, layerGoogleHybrid, layerGoogleTerrain]);
 	    map.addControl(new OpenLayers.Control.LayerSwitcher());
 	}
 	window.onload = init;
