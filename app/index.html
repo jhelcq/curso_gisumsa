@@ -49,6 +49,8 @@
 	    });
 		map.addLayers([layerGoogleMaps, layerGoogleHybrid, layerGoogleTerrain, mapboxLayer]);
 	    map.addControl(new OpenLayers.Control.LayerSwitcher());
+	    var controlCursor = new OpenLayers.Control.MousePosition()
+	    map.addControl(controlCursor);
 	}
 	window.onload = init;
 </script>	
