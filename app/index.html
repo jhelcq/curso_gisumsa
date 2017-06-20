@@ -37,7 +37,17 @@
 		var layerGoogleMaps = new OpenLayers.Layer.Google("Mapa Satelital", {type:google.maps.MapTypeId.SATELLITE}); //capa base de google maps
 		var layerGoogleHybrid = new OpenLayers.Layer.Google("Mapa Hibrido", {type:google.maps.MapTypeId.HYBRID}); //capa base de google maps
 		var layerGoogleTerrain = new OpenLayers.Layer.Google("Mapa Terrain", {type:google.maps.MapTypeId.TERRAIN}); //capa base de google maps
-		map.addLayers([layerGoogleMaps, layerGoogleHybrid, layerGoogleTerrain]);
+		var mapboxLayer = new OpenLayers.Layer.XYZ('MapBox', [
+			    "http://b.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png",
+	        	"http://c.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png",
+	        	"http://d.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png"
+			    ], {
+	        sphericalMercator: true,
+	        //tileSize: new OpenLayers.Size([512, 512]),
+	        wrapDateLine: true,
+	    	numZoomLevels: 19
+	    });
+		map.addLayers([layerGoogleMaps, layerGoogleHybrid, layerGoogleTerrain, mapboxLayer]);
 	    map.addControl(new OpenLayers.Control.LayerSwitcher());
 	}
 	window.onload = init;
