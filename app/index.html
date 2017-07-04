@@ -10,10 +10,16 @@
      <style type>
           #mapa {
             width: 100%;
-            height: 500px;
-            border: 1px solid red;
+            height: 600px;
+            border: 3px solid #0404B4;
           }
-        </style>
+         #titulo{
+         	text-align: center;
+         	background-color: #2E64FE;
+         	padding: 15px;
+         	margin: 0px;
+         }
+    </style>
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.min.js
     '></script> -->
 	<script type="text/javascript">
@@ -71,16 +77,54 @@
 		map.addLayer(layerDepartamentosWMS);
 
 		// Layer WMS desde geoserver Local
-		var layerEolico = new OpenLayers.Layer.WMS(
-			"Rios de Bolivia",
+		var cartas = new OpenLayers.Layer.WMS(
+		"Cartas de bolivia",
+		host + ":8080/geoserver/wms",
+		{
+			layers: 'rios:cartas_bolivia',
+				transparent: true
+			}
+		);
+		map.addLayer(cartas);
+		cartas.setVisibility(false);
+
+		var cartasSql = new OpenLayers.Layer.WMS(
+			"Cartas de Bolivia sql",
 			host + ":8080/geoserver/wms",
 			{
-				layers: 'rios:cartas_bolivia',
-					transparent: true
-				}
-			);
-			map.addLayer(layerEolico);
-			layerEolico.setVisibility(false);
+				layers: 'rios:cartas',
+				transparent: true
+			}
+		);
+		map.addLayer(cartasSql);
+		cartasSql.setVisibility(false);
+
+		var bofedales = new OpenLayers.Layer.WMS(
+		"Bofedales",
+		host + ":8080/geoserver/wms",{
+			layers: 'rios:Bofedales_A2016',
+			transparent: true
+		});
+		map.addLayer(bofedales);
+		bofedales.setVisibility(false);
+
+		var unidadesHidrograficas = new OpenLayers.Layer.WMS(
+		"Unidades hidrograficas",
+		host + ":8080/geoserver/wms",{
+			layers: 'rios:UnidadesHidrograficas_Nivel5',
+			transparent: true
+		});
+		map.addLayer(unidadesHidrograficas);
+		unidadesHidrograficas.setVisibility(false);
+
+		var lagosLagunas = new OpenLayers.Layer.WMS(
+		"Lagos y lagunas",
+		host + ":8080/geoserver/wms",{
+			layers: 'rios:LagosLagunas_A2016',
+			transparent: true
+		});
+		map.addLayer(lagosLagunas);
+		lagosLagunas.setVisibility(false);
 
 			// Layer WMS mapa Eolico desde PostGIS
 			/*var layerEolicoPG = new OpenLayers.Layer.WMS(
@@ -161,7 +205,7 @@
 	</script>
 </head>
 <body>
-    <h1>Basic map</h1>
+    <h1 id='titulo'>Recursos hidrograficos de Bolivia</h1>
     <div id="mapa"></div>
 </body>
 </html>
